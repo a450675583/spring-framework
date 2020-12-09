@@ -64,6 +64,7 @@ task api(type: Javadoc) {
 	}
 }
 
+/**
 dokka {
 	dependsOn {
 		tasks.getByName("api")
@@ -126,6 +127,8 @@ asciidoctor {
 			'spring-version': project.version
 }
 
+
+
 task asciidoctorPdf(type: AsciidoctorTask) {
 	sources {
 		include '*.adoc'
@@ -148,8 +151,10 @@ task asciidoctorPdf(type: AsciidoctorTask) {
 		project.delete("$asciidoctorPdf.outputDir/pdf/images")
 	}
 }
+**/
 
-task docsZip(type: Zip, dependsOn: ['api', 'asciidoctor', 'dokka']) {
+//task docsZip(type: Zip, dependsOn: ['api', 'asciidoctor', 'dokka']) {
+task docsZip(type: Zip, dependsOn: ['api', 'asciidoctor']) {
 	group = "Distribution"
 	baseName = "spring-framework"
 	classifier = "docs"
@@ -172,9 +177,9 @@ task docsZip(type: Zip, dependsOn: ['api', 'asciidoctor', 'dokka']) {
 		into "spring-framework-reference/pdf"
 	}
 
-	from (dokka) {
-		into "kdoc-api"
-	}
+//	from (dokka) {
+//		into "kdoc-api"
+//	}
 }
 
 task schemaZip(type: Zip) {
