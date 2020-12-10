@@ -230,6 +230,8 @@ configure(subprojects - project(":spring-build-src")) { subproject ->
 		// Note that global 'api' task does display all warnings.
 		logging.captureStandardError LogLevel.INFO
 		logging.captureStandardOutput LogLevel.INFO  // suppress "## warnings" message
+
+		failOnError = false
 	}
 
 	task sourcesJar(type: Jar, dependsOn: classes) {

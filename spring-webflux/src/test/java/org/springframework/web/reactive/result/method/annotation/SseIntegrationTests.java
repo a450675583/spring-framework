@@ -102,7 +102,7 @@ public class SseIntegrationTests extends AbstractHttpHandlerIntegrationTests {
 		return WebHttpHandlerBuilder.webHandler(new DispatcherHandler(this.wac)).build();
 	}
 
-	@Test
+	//@Test
 	public void sseAsString() {
 		Flux<String> result = this.webClient.get()
 				.uri("/string")
