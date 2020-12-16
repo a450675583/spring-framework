@@ -467,6 +467,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	//---------------------------------------------------------------------
 
 	/**
+	 * 此类的核心方法：创建Bean实例，填充Bean实例，应用后处理器等。
 	 * Central method of this class: creates a bean instance,
 	 * populates the bean instance, applies post-processors, etc.
 	 * @see #doCreateBean
@@ -483,6 +484,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// Make sure bean class is actually resolved at this point, and
 		// clone the bean definition in case of a dynamically resolved Class
 		// which cannot be stored in the shared merged bean definition.
+		//确保此时确实解析了bean类，如果动态解析的Class无法存储在共享的合并bean定义中，则复制bean定义。
 		Class<?> resolvedClass = resolveBeanClass(mbd, beanName);
 		if (resolvedClass != null && !mbd.hasBeanClass() && mbd.getBeanClassName() != null) {
 			mbdToUse = new RootBeanDefinition(mbd);
@@ -499,7 +501,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		try {
+			// 给BeanPostProcessors一个返回代理而不是目标bean实例的机会。
 			// Give BeanPostProcessors a chance to return a proxy instead of the target bean instance.
+			// 在实例化bean之前通过一个BeanPostProcessor（InstantiationAwareBeanPostProcessor）。 返回的bean对象可以是代替目标bean使用的代理
 			Object bean = resolveBeforeInstantiation(beanName, mbdToUse);
 			if (bean != null) {
 				return bean;
@@ -529,6 +533,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	}
 
 	/**
+	 * 实际创建指定的bean。 此时，预创建处理已经发生，例如，检查postProcessBeforeInstantiation回调。
+	 * 区分默认bean实例化，使用工厂方法和自动装配构造函数。
+	 *
 	 * Actually create the specified bean. Pre-creation processing has already happened
 	 * at this point, e.g. checking {@code postProcessBeforeInstantiation} callbacks.
 	 * <p>Differentiates between default bean instantiation, use of a
@@ -930,6 +937,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	}
 
 	/**
+	 * 获取一个引用，以便尽早访问指定的bean，通常是为了解决循环引用。
+	 *
 	 * Obtain a reference for early access to the specified bean,
 	 * typically for the purpose of resolving a circular reference.
 	 * @param beanName the name of the bean (for error handling purposes)
@@ -1078,6 +1087,12 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	}
 
 	/**
+	 * 应用实例化之前的后处理器，以解决指定的bean是否存在实例化快捷方式。
+	 * BeanPostProcessor 调用
+	 *
+	 * 在实例化bean之前应用此BeanPostProcessor（InstantiationAwareBeanPostProcessor）。
+	 * 返回的bean对象可以是代替目标bean使用的代理，有效地抑制了目标bean的默认实例化。
+	 *
 	 * Apply before-instantiation post-processors, resolving whether there is a
 	 * before-instantiation shortcut for the specified bean.
 	 * @param beanName the name of the bean

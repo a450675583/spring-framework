@@ -47,6 +47,14 @@ import org.springframework.lang.Nullable;
 public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 
 	/**
+	 * 在实例化bean之前应用此BeanPostProcessor。 返回的bean对象可以是代替目标bean使用的代理，有效地抑制了目标bean的默认实例化。
+	 *
+	 * 如果此方法返回一个非null对象，则Bean创建过程将被短路。 应用的唯一进一步处理是来自已配置BeanPostProcessors的postProcessAfterInitialization回调。
+	 * 此回调将应用于具有其bean类的bean定义以及工厂方法定义，在这种情况下，返回的bean类型将在此处传递。
+	 * 后处理器可以实现扩展的SmartInstantiationAwareBeanPostProcessor接口，以便预测它们将在此处返回的Bean对象的类型。
+	 * 默认实现返回null 。
+	 *
+	 *
 	 * Apply this BeanPostProcessor <i>before the target bean gets instantiated</i>.
 	 * The returned bean object may be a proxy to use instead of the target bean,
 	 * effectively suppressing default instantiation of the target bean.

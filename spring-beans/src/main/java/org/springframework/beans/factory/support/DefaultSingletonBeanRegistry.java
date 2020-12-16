@@ -144,6 +144,9 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	}
 
 	/**
+	 * 如有必要，添加给定的单例工厂以构建指定的单例。
+	 * 被要求急于注册的单例，例如能够解析循环引用。
+	 *
 	 * Add the given singleton factory for building the specified singleton
 	 * if necessary.
 	 * <p>To be called for eager registration of singletons, e.g. to be able to

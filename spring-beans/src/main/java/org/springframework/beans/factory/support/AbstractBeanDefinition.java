@@ -1077,6 +1077,7 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	}
 
 	/**
+	 * 验证并准备此bean定义的方法实现。 检查是否存在具有指定名称的方法。
 	 * Validate and prepare the method overrides defined for this bean.
 	 * Checks for existence of a method with the specified name.
 	 * @throws BeanDefinitionValidationException in case of validation failure
@@ -1089,6 +1090,9 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	}
 
 	/**
+	 * 验证并准备给定的方法的实现。
+	 * 检查是否存在具有指定名称的方法，如果找不到该方法，则将其标记为未重载。
+	 *
 	 * Validate and prepare the given method override.
 	 * Checks for existence of a method with the specified name,
 	 * marking it as not overloaded if none found.
